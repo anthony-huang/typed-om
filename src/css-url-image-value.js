@@ -1,5 +1,11 @@
 (function(internal, scope) {
 
+  CSSURLImageValue.from = function(url) {
+    var temp = url.substring(5);
+    var clean = temp.substr(0, temp.length - 2);
+    return new CSSURLImageValue(clean);
+  };
+
   function CSSURLImageValue(url) {
     this._image = new Image();
     this._image.src = url;
@@ -13,6 +19,7 @@
   internal.inherit(CSSURLImageValue, CSSImageValue);
 
   function calculate(urlImageValue) {
+    urlImageValue._state = "loaded";
     urlImageValue.intrinsicWidth = urlImageValue._image.naturalWidth;
     urlImageValue.intrinsicHeight = urlImageValue._image.naturalHeight;
     urlImageValue.intrinsicRatio = urlImageValue.intrinsicWidth / urlImageValue.intrinsicHeight;
