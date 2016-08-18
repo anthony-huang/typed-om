@@ -17,11 +17,10 @@ suite('CSSURLImageValue', function() {
 
   test('Can get intrinsic dimensions of CSSURLImageValue', function() {
     var inlineStyleMap = this.element.styleMap();
-    var bg = new CSSURLImageValue('https://codereview.chromium.org/static/chromium-24.png');
-    // alert(bg._image.complete);
-    alert(bg.cssText);
-    inlineStyleMap.set("background-image", bg);
-    alert(this.element.style['background-image']);
-    assert.strictEqual(bg.intrinsicWidth, 24);
+    var urlImageValue = new CSSURLImageValue('https://codereview.chromium.org/static/chromium-24.png');
+    inlineStyleMap.set("background-image", urlImageValue);
+    assert.strictEqual(urlImageValue.intrinsicWidth, 24);
+    assert.strictEqual(urlImageValue.intrinsicHeight, 24);
+    assert.strictEqual(urlImageValue.intrinsicRatio, 1);
   });
 });
