@@ -15,6 +15,13 @@ suite('CSSURLImageValue', function() {
     assert.instanceOf(new CSSURLImageValue('https://codereview.chromium.org/static/chromium-24.png'), CSSStyleValue);
   });
 
+  test('CSSURLImageValue only accepts string', function() {
+    assert.throw(function() { new CSSURLImageValue(); }, TypeError, "URL must be a string");
+    assert.throw(function() { new CSSURLImageValue([]); }, TypeError, "URL must be a string");
+    assert.throw(function() { new CSSURLImageValue(1); }, TypeError, "URL must be a string");
+    assert.doesNotThrow(function() { new CSSURLImageValue(''); });
+  });
+
   test('Can get intrinsic dimensions of CSSURLImageValue', function() {
     var inlineStyleMap = this.element.styleMap();
     var urlImageValue = new CSSURLImageValue('https://codereview.chromium.org/static/chromium-24.png');

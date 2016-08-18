@@ -7,6 +7,9 @@
   };
 
   function CSSURLImageValue(url) {
+    if (typeof(url) != 'string') {
+      throw new TypeError("URL must be a string");
+    }
     var urlImageValue = this;
     this._image = new Image();
     this._image.src = url;
