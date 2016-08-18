@@ -7,22 +7,40 @@
   };
 
   function CSSURLImageValue(url) {
+    var urlImageValue = this;
     this._image = new Image();
     this._image.src = url;
-    this._image.addEventListener("load", calculate(this));
-    this._url = url;
-    this.cssText = 'url(' + this._url + ')';
+    this.state = "unloaded";
+    this.intrinsicWidth = null;
+    this.intrinsicHeight = null;
+    this.intrinsicRatio = null;
+    this.url = url;
+    this.cssText = 'url(' + this.url + ')';
+    // calculate(this);
+    this._image.onload = function() { calculate(urlImageValue); };
+    this._image.onprogress = function() { progress(urlImageValue); };
+    this._image.onerror = function() { error(urlImageValue); };
 
-    CSSImageValue.call(this, this._image);
+
+    // loading image
   }
 
   internal.inherit(CSSURLImageValue, CSSImageValue);
 
+  function progress(urlImageValue) {
+    urlImageValue.state = "loading";
+  }
+
+  function error(urlImageValue) {
+    urlImageValue.state = "error";
+  }
+
   function calculate(urlImageValue) {
-    urlImageValue._state = "loaded";
+    urlImageValue.state = "loaded";
     urlImageValue.intrinsicWidth = urlImageValue._image.naturalWidth;
     urlImageValue.intrinsicHeight = urlImageValue._image.naturalHeight;
-    urlImageValue.intrinsicRatio = urlImageValue.intrinsicWidth / urlImageValue.intrinsicHeight;
+    if (urlImageValue.intrinsicHeight != 0)
+      urlImageValue.intrinsicRatio = urlImageValue.intrinsicWidth / urlImageValue.intrinsicHeight;
   }
 
   scope.CSSURLImageValue = CSSURLImageValue;
