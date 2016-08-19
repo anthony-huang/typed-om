@@ -9,10 +9,10 @@ suite('CSSURLImageValue', function() {
   });
 
   test('CSSURLImageValue is a CSSURLImageValue, CSSImageValue, CSSResourceValue, and CSSStyleValue', function() {
-    assert.instanceOf(new CSSURLImageValue('https://codereview.chromium.org/static/chromium-24.png'), CSSURLImageValue);
-    assert.instanceOf(new CSSURLImageValue('https://codereview.chromium.org/static/chromium-24.png'), CSSImageValue);
-    assert.instanceOf(new CSSURLImageValue('https://codereview.chromium.org/static/chromium-24.png'), CSSResourceValue);
-    assert.instanceOf(new CSSURLImageValue('https://codereview.chromium.org/static/chromium-24.png'), CSSStyleValue);
+    assert.instanceOf(new CSSURLImageValue('http://1x1px.me/FF4D00-0.8.png'), CSSURLImageValue);
+    assert.instanceOf(new CSSURLImageValue('http://1x1px.me/FF4D00-0.8.png'), CSSImageValue);
+    assert.instanceOf(new CSSURLImageValue('http://1x1px.me/FF4D00-0.8.png'), CSSResourceValue);
+    assert.instanceOf(new CSSURLImageValue('http://1x1px.me/FF4D00-0.8.png'), CSSStyleValue);
   });
 
   test('CSSURLImageValue only accepts string', function() {
@@ -24,14 +24,14 @@ suite('CSSURLImageValue', function() {
 
   test('Can get intrinsic dimensions of CSSURLImageValue', function() {
     var inlineStyleMap = this.element.styleMap();
-    var urlImageValue = new CSSURLImageValue('https://codereview.chromium.org/static/chromium-24.png');
+    var urlImageValue = new CSSURLImageValue('http://1x1px.me/FF4D00-0.8.png');
     inlineStyleMap.set("background-image", urlImageValue);
     var image = new Image();
     image.src = urlImageValue.url;
     image.onload = function() {
       assert.strictEqual(urlImageValue.state, "loaded");
-      assert.strictEqual(urlImageValue.intrinsicWidth, 24);
-      assert.strictEqual(urlImageValue.intrinsicHeight, 24);
+      assert.strictEqual(urlImageValue.intrinsicWidth, 1);
+      assert.strictEqual(urlImageValue.intrinsicHeight, 1);
       assert.strictEqual(urlImageValue.intrinsicRatio, 1);
     };
   });
