@@ -27,15 +27,14 @@ suite('CSSURLImageValue', function() {
     var urlImageValue = new CSSURLImageValue('http://1x1px.me/FF4D00-0.8.png');
     assert.equal(urlImageValue.url, "http://1x1px.me/FF4D00-0.8.png");
     inlineStyleMap.set("background-image", urlImageValue);
-    var image = new Image();
-    image.src = urlImageValue.url;
-    image.onload = function() {
+
+    setTimeout(function() {
       assert.strictEqual(urlImageValue.state, "loaded");
       assert.strictEqual(urlImageValue.intrinsicWidth, 1);
       assert.strictEqual(urlImageValue.intrinsicHeight, 1);
       assert.strictEqual(urlImageValue.intrinsicRatio, 1);
       done();
-    };
+    }, 250);
   });
 
   test('Invalid image will have error state and null intrinsic dimensions', function(done) {
@@ -44,22 +43,28 @@ suite('CSSURLImageValue', function() {
     assert.equal(urlImageValue.url, 'http://localhost');
     inlineStyleMap.set("background-image", urlImageValue);
 
-    var image = new Image();
-    image.src = urlImageValue.url;
-    image.onerror = function() {
+    setTimeout(function() {
       assert.strictEqual(urlImageValue.state, "error");
       assert.strictEqual(urlImageValue.intrinsicWidth, null);
       assert.strictEqual(urlImageValue.intrinsicHeight, null);
       assert.strictEqual(urlImageValue.intrinsicRatio, null);
       done();
-    };
+    }, 20);
   });
 
-  test('Can get CSSURLImageValue from StyleMap', function() {
+  test('Can get CSSURLImageValue from StyleMap', function(done) {
     var inlineStyleMap = this.element.styleMap();
     inlineStyleMap.set("background-image", new CSSURLImageValue('http://1x1px.me/FF4D00-0.8.png'));
     var urlImageValue = inlineStyleMap.get("background-image");
     assert.instanceOf(urlImageValue, CSSURLImageValue);
     assert.equal(urlImageValue.url, "http://1x1px.me/FF4D00-0.8.png".toLowerCase());
+
+    setTimeout(function() {
+      assert.strictEqual(urlImageValue.state, "loaded");
+      assert.strictEqual(urlImageValue.intrinsicWidth, 1);
+      assert.strictEqual(urlImageValue.intrinsicHeight, 1);
+      assert.strictEqual(urlImageValue.intrinsicRatio, 1);
+      done();
+    }, 250);
   });
 });
