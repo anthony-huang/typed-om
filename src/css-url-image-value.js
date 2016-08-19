@@ -19,7 +19,7 @@
     this.intrinsicRatio = null;
     this.url = url;
     this.cssText = 'url(' + this.url + ')';
-    // calculate(this);
+
     this._image.onload = function() { calculate(urlImageValue); };
     this._image.onprogress = function() { progress(urlImageValue); };
     this._image.onerror = function() { error(urlImageValue); };
