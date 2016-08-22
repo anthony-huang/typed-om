@@ -5,21 +5,31 @@
       throw new TypeError("image must be an Image object");
     }
     this._image = image;
-  }
 
-  CSSImageValue.prototype.intrinsicWidth = function() {
-    if (this._image.naturalWidth == 0) return null;
-    return this._image.naturalWidth;
-  }
+    var imagesEventsHandler = {
+      onload: function() {
+        this.state = "loaded";
+        this.intrinsicWidth = this._image.naturalWidth;
+        this.intrinsicHeight = this._image.naturalHeight;
+        if (this.intrinsicHeight != 0)
+          this.intrinsicRatio = this.intrinsicWidth / this.intrinsicHeight;
+      },
+      onerror: function() {
+        this.state = "error";
+      },
+      onprogress: function() {
+        this.state = "loading";
+      }
+    };
 
-  CSSImageValue.prototype.intrinsicHeight = function() {
-    if (this._image.naturalHeight == 0) return null;
-    return this._image.naturalHeight;
-  }
+    this.state = "unloaded";
+    this.intrinsicWidth = null;
+    this.intrinsicHeight = null;
+    this.intrinsicRatio = null;
 
-  CSSImageValue.prototype.intrinsicRatio = function() {
-    if (intrinsicHeight() == 0) return null;
-    return intrinsicWidth() / intrinsicHeight();
+    this._image.onload = imagesEventsHandler.onload.bind(this);
+    this._image.onprogress = imagesEventsHandler.onprogress.bind(this);
+    this._image.onerror = imagesEventsHandler.onerror.bind(this);
   }
 
   internal.inherit(CSSImageValue, CSSResourceValue);

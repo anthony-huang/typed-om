@@ -74,6 +74,7 @@
       'test/js/css-angle-value.js',
       'test/js/css-calc-length.js',
       'test/js/css-color-value.js',
+      'test/js/css-image-value.js',
       'test/js/css-keyword-value.js',
       'test/js/css-length-value.js',
       'test/js/css-matrix.js',
