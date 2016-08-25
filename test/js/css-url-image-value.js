@@ -61,8 +61,10 @@ suite('CSSURLImageValue', function() {
     assert.instanceOf(urlImageValue, CSSURLImageValue);
     assert.equal(urlImageValue.url, "resources/1x1-green.png".toLowerCase());
 
+    var oldOnload = urlImageValue._image.onload;
+
     urlImageValue._image.onload = function() {
-      urlImageValue.onLoad();
+      oldOnload();
       assert.strictEqual(urlImageValue.state, "loaded");
       assert.strictEqual(urlImageValue.intrinsicWidth, 1);
       assert.strictEqual(urlImageValue.intrinsicHeight, 1);
