@@ -40,7 +40,7 @@
     };
 
     this._listSeparator = {
-      'animation-iteration-count': ', '
+      'animation-iteration-count': ','
     };
   }
 
@@ -52,14 +52,14 @@
     return (this._listSeparator.hasOwnProperty(property));
   };
 
-  PropertyDictionary.prototype.getValidStyleValuesArray = function(property) {
+  PropertyDictionary.prototype.supportedStyleValues = function(property) {
     if (!this.isSupportedProperty(property)) {
       throw new TypeError(property + ' is not a supported CSS property');
     }
     return this._validProperties[property];
   };
 
-  PropertyDictionary.prototype.getListValueSeparator = function(property) {
+  PropertyDictionary.prototype.listValueSeparator = function(property) {
     if (this.isListValuedProperty(property)) {
       return this._listSeparator[property];
     }
@@ -80,8 +80,7 @@
     return (lengthValue.type == 'percent');
   };
 
-  PropertyDictionary.prototype.
-      isValidKeyword = function(property, styleValueString) {
+  PropertyDictionary.prototype.isValidKeyword = function(property, styleValueString) {
     return this._validKeywords[property].indexOf(styleValueString) > -1;
   };
 
