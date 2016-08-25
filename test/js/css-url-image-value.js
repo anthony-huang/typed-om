@@ -28,8 +28,10 @@ suite('CSSURLImageValue', function() {
     assert.equal(urlImageValue.url, "resources/1x1-green.png");
     inlineStyleMap.set("background-image", urlImageValue);
 
+    var oldOnload = urlImageValue._image.onload;
+
     urlImageValue._image.onload = function() {
-      urlImageValue.onLoad();
+      oldOnload();
       assert.strictEqual(urlImageValue.state, "loaded");
       assert.strictEqual(urlImageValue.intrinsicWidth, 1);
       assert.strictEqual(urlImageValue.intrinsicHeight, 1);
@@ -44,8 +46,10 @@ suite('CSSURLImageValue', function() {
     assert.equal(urlImageValue.url, 'http://localhost');
     inlineStyleMap.set("background-image", urlImageValue);
 
+    var oldOnerror = urlImageValue._image.onerror;
+
     urlImageValue._image.onerror = function() {
-      urlImageValue.onError();
+      oldOnerror();
       assert.strictEqual(urlImageValue.state, "error");
       assert.strictEqual(urlImageValue.intrinsicWidth, null);
       assert.strictEqual(urlImageValue.intrinsicHeight, null);
