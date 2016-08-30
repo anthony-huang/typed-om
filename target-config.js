@@ -64,6 +64,7 @@
       'src/parsing/css-skew-parsing.js',
       'src/parsing/css-translation-parsing.js',
       'src/parsing/css-angle-value-parsing.js',
+      'src/parsing/css-token-stream-value-parsing.js',
       'src/parsing/css-transform-value-parsing.js',
       'src/parsing/css-length-value-parsing.js',
       'src/parsing/css-position-value-parsing.js',

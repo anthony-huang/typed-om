@@ -18,7 +18,7 @@
     this._validProperties = {
       'animation-iteration-count': [CSSNumberValue],
       'border-top-width': [CSSLengthValue],
-      'height': [CSSLengthValue],
+      'height': [CSSLengthValue, CSSTokenStreamValue],
       'opacity': [CSSNumberValue],
       'pitch-range': [CSSNumberValue],
       'transform': [CSSTransformValue]
