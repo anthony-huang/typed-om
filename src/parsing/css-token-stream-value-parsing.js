@@ -11,7 +11,8 @@
   }
 
   function getVariableReferenceValue(string) {
-    var temp = internal.parsing.consumeToken(/[^,]*/, string);
+    // var temp = internal.parsing.consumeToken(/[^,]*/, string);
+    var temp = internal.parsing.consumeToken(/.*?(?=\,)/, string);
     console.log(temp, string);
     if (temp == null) {
       return variableReferenceValue(string.substr(1, string.length - 2), []);
