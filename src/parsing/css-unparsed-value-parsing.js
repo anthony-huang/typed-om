@@ -5,7 +5,7 @@
     if (fragments.length == 0) {
       tokenStreamValue = undefined;
     } else {
-      tokenStreamValue = new CSSTokenStreamValue(fragments);
+      tokenStreamValue = new CSSUnparsedValue(fragments);
     }
     variableReference = new CSSVariableReferenceValue(variableName, tokenStreamValue);
     return variableReference;
@@ -43,12 +43,12 @@
     return fragments;
   }
 
-  function consumeTokenStreamValue(string) {
+  function consumeUnparsedValue(string) {
     if (string.search(/var/i) >= 0) {
-      return [[new CSSTokenStreamValue(stringToFragments(string))]];
+      return [[new CSSUnparsedValue(stringToFragments(string))]];
     }
     return null;
   }
 
-  internal.parsing.consumeTokenStreamValue = consumeTokenStreamValue;
+  internal.parsing.consumeUnparsedValue = consumeUnparsedValue;
 })(typedOM.internal);
