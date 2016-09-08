@@ -32,7 +32,9 @@
         }
         string = '';
       } else {
-        fragments.push(temp[0]);
+        if (temp[0] !== '') {
+          fragments.push(temp[0]);
+        }
         string = temp[1];
         string = string.substr(3);
         temp = internal.parsing.consumeParenthesised(getVariableReferenceValue, string);
@@ -44,8 +46,9 @@
   }
 
   function consumeUnparsedValue(string) {
+    console.log(string);
     if (string.search(/var/i) >= 0) {
-      return [[new CSSUnparsedValue(stringToFragments(string))]];
+      return [new CSSUnparsedValue(stringToFragments(string))];
     }
     return null;
   }
