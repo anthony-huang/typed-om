@@ -61,8 +61,7 @@ suite('CSSUnparsedValue', function() {
 
   test('Construction of CSSUnparsedValue is normalized using example from the spec', function() {
     document.documentElement.style.height = 'calc(42px + var(--foo, 15em) + var(--bar, var(--far) + 15px))';
-    var unparsedValues = document.documentElement.styleMap().get('height');
-    var values = unparsedValues.values();
+    var values = document.documentElement.styleMap().get('height').values();
     assert.strictEqual(values.next().value, "calc(42px + ");
     var foo = values.next().value;
     assert.strictEqual(foo.variable, "--foo");
@@ -73,6 +72,22 @@ suite('CSSUnparsedValue', function() {
     var barFallback = bar.fallback.values();
     assert.strictEqual(barFallback.next().value, " ");
     var far = barFallback.next().value;
+    assert.strictEqual(far.variable, "--far");
+    assert.strictEqual(far.fallback, undefined);
+    assert.strictEqual(barFallback.next().value, " + 15px");
+    assert(barFallback.next().done);
+    assert.strictEqual(values.next().value, ")");
+    assert(values.next().done);
+  });
 
+  test('Has several values', function() {
+    document.documentElement.style.height = 'var(--a, 10px, 20px, 30em)';
+    var values = document.documentElement.styleMap().get('height').values();
+    var a = values.next().value;
+    assert.strictEqual(a.variable, "--a");
+    var aFallback = a.fallback.values();
+    assert.strictEqual(aFallback.next().value, " 10px, 20px, 30em");
+    assert(aFallback.next().done);
+    assert(values.next().done);
   });
 });
