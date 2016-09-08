@@ -46,9 +46,8 @@
   }
 
   function consumeUnparsedValue(string) {
-    console.log(string);
     if (string.search(/var/i) >= 0) {
-      return [new CSSUnparsedValue(stringToFragments(string))];
+      return [new CSSUnparsedValue(stringToFragments(string)), ""];
     }
     return null;
   }

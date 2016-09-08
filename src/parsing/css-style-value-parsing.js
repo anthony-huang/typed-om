@@ -19,6 +19,7 @@
   parsers['CSSLengthValue'] = internal.parsing.consumeLengthValue;
   parsers['CSSTransformValue'] = internal.parsing.consumeTransformValue;
   parsers['CSSURLImageValue'] = internal.parsing.consumeURLImageValue;
+  parsers['CSSUnparsedValue'] = internal.parsing.consumeUnparsedValue;
 
   function consumeKeyword(property, string) {
     var consumed = internal.parsing.consumeToken(/^[a-z_]+[a-z0-9_-]*/i, string);

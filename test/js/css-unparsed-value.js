@@ -60,7 +60,11 @@ suite('CSSUnparsedValue', function() {
   });
 
   test('Construction of CSSUnparsedValue is normalized using example from the spec', function() {
-    document.documentElement.height = 'calc(42px + var(--foo, 15em) + var(--bar, var(--test) + 15px))';
-    var
+    document.documentElement.style.height = 'calc(42px + var(--foo, 15em) + var(--bar, var(--test) + 15px))';
+    var unparsedValues = document.documentElement.styleMap().get('height');
+    var values = unparsedValues.values();
+    assert.strictEqual(values.next().value, "calc(42px + ");
+    // assert.strictEqual(values[1].variable, "--foo");
+    // assert.strictEqual(values[1].fallback, )
   });
 });
