@@ -70,6 +70,7 @@
       'src/parsing/css-position-value-parsing.js',
       'src/parsing/css-transform-component-parsing.js',
       'src/parsing/css-unparsed-value-parsing.js',
+      'src/parsing/css-url-image-value-parsing.js',
       // Depends on both transform component subclasses and length parsing
       'src/parsing/css-style-value-parsing.js',
   ];
