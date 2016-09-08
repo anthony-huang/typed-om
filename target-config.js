@@ -65,11 +65,11 @@
       'src/parsing/css-skew-parsing.js',
       'src/parsing/css-translation-parsing.js',
       'src/parsing/css-angle-value-parsing.js',
-      'src/parsing/css-token-stream-value-parsing.js',
       'src/parsing/css-transform-value-parsing.js',
       'src/parsing/css-length-value-parsing.js',
       'src/parsing/css-position-value-parsing.js',
       'src/parsing/css-transform-component-parsing.js',
+      'src/parsing/css-unparsed-value-parsing.js',
       // Depends on both transform component subclasses and length parsing
       'src/parsing/css-style-value-parsing.js',
   ];
